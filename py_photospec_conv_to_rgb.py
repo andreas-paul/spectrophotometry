@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Jan 10 12:53:51 2018
-
 @author: A Paul
+Python version: 3.6
 """
 import pandas as pd
 import numpy as np
@@ -10,17 +10,17 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 import matplotlib as mpl
 
-# Data import and extraction of columns as individual variables.
-lab_1100 = pd.read_csv('photospectrometry.csv')
-var_y = (lab_1100.iloc[:,1] + 16) / 116
-var_x = lab_1100.iloc[:,2] / 500 + var_y
-var_z = var_y - lab_1100.iloc[:,3] / 200
+# Data import and extraction of columns as individual variables. The .csv file should have the following shape:
+#  Column 1: L* | Column 2: a* | Column 3: b*
+lab_data = pd.read_csv('photospectrometry.csv')
+var_y = (lab_data.iloc[:,0] + 16) / 116
+var_x = lab_data.iloc[:,1] / 500 + var_y
+var_z = var_y - lab_data.iloc[:,2] / 200
 
 
 """
-Conversion from LAB to XYZ
+Conversion from LAB to XYZ (It is not possible to convert directly from LAB to sRGB)
 """
-
 # The variables are cubed. Normally the cubed values would be checked if they are larger than 0.008856. If they are, then the respective value is cubed. If not, the following formula should be used to calculate the respective value: var = (var - 16 / 116) / 7.787
 var_y = np.power(var_y,3)
 var_x = np.power(var_x,3)
@@ -35,10 +35,10 @@ X_fr = pd.DataFrame(X, columns=['X'])
 Y_fr = pd.DataFrame(Y, columns=['L*'])
 Z_fr = pd.DataFrame(Z, columns=['Z'])
 
+
 """
 Conversion from XYZ to sRGB
 """
-
 # Taken from EasyRGB
 var_X = X_fr / 100
 var_Y = Y_fr / 100
@@ -64,6 +64,10 @@ sB = var_B * 255
 zipped = zip(var_R,var_G,var_B)
 sRGB_list = list(zipped)
 
+
+"""
+Plotting
+"""
 # Create custom colormap from sRGB list and plot the colormap
 fig = plt.figure(figsize=[20,2], facecolor='white')
 ax = fig.subplots()
@@ -77,5 +81,5 @@ cb2 = mpl.colorbar.ColorbarBase(ax, cmap=cmap,
 cb2.set_label('')
 ax.set_xticklabels('')
 fig.show()
-plt.savefig('colormap_1100_synthetics_1150.png',dpi=1200)
+plt.savefig('colormap_data.png',dpi=1200)
 
