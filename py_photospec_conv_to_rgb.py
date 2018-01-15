@@ -35,6 +35,7 @@ X_fr = pd.DataFrame(X, columns=['X'])
 Y_fr = pd.DataFrame(Y, columns=['L*'])
 Z_fr = pd.DataFrame(Z, columns=['Z'])
 
+Y_fr.columns = ['Y']
 
 """
 Conversion from XYZ to sRGB
