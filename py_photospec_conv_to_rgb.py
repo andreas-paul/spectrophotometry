@@ -77,10 +77,8 @@ cmap.set_over('0.25')
 cmap.set_under('0.75')
 bounds = np.arange(0,cmap.N,1)
 norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
-cb2 = mpl.colorbar.ColorbarBase(ax, cmap=cmap, 
-                     orientation='horizontal')
+cb2 = mpl.colorbar.ColorbarBase(ax, cmap=cmap,                orientation='horizontal')
 cb2.set_label('')
 ax.set_xticklabels('')
-fig.show()
+plt.show()
 plt.savefig('colormap_data.png',dpi=1200)
-
