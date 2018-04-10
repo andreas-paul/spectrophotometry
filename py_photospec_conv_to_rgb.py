@@ -45,7 +45,7 @@ var_X = X_fr / 100
 var_Y = Y_fr / 100
 var_Z = Z_fr / 100
 
-var_R = (var_X.iloc[:,0] * 3.2404542) + (var_Y.iloc[:,0] * -1.5371385) + (var_Z.iloc[:,0] * -0.4985314)
+var_R = (var_X.iloc[:,0] * 3.2404542) + (var_Y.iloc[:,0] * -1.5371385) +  (var_Z.iloc[:,0] * -0.4985314)
 var_G = (var_X.iloc[:,0] * -0.9692660) + (var_Y.iloc[:,0] * 1.8760108) + (var_Z.iloc[:,0] * 0.0415560)
 var_B = (var_X.iloc[:,0] * 0.0556434) + (var_Y.iloc[:,0] * -0.2040259) + (var_Z.iloc[:,0] * 1.0572252)
 
