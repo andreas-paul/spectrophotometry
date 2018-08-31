@@ -2,25 +2,27 @@
 """
 Created on Wed Jan 10 12:53:51 2018
 Updated 06 Aug 2018
+Updated 31 Aug 2018
 
 @author: A Paul
+
+This code will convert CIE Lab data to XYZ and sRGB values. Information in the web is sparse, so most of the calculations were taken from https://www.easyrgb.com and http://www.brucelindbloom.com/. 
 """
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 import matplotlib as mpl
-# import matplotlib.image as mpimg
+
 
 """
 Data import and extraction of columns as individual variables, variable definitions
 """
-#lab_1100 = pd.read_csv('photospectrometry.csv', names=['depth_m', 'L*', 'a*', 'b*'], header=None)
-lab_1100 = pd.read_csv('photospectrometry_filled.csv', names=['depth_m', 'L*', 'a*', 'b*'], header=None)
-depth_m = lab_1100['depth_m']
-L = lab_1100['L*'] # L* value for calculations
-a = lab_1100['a*'] # a* value for calculations
-b = lab_1100['b*'] # b* value for calculations
+lab_core = pd.read_csv('photospectrometry.csv', names=['depth_m', 'L*', 'a*', 'b*'], header=None)
+depth_m = lab_core['depth_m']
+L = lab_core['L*'] # L* value for calculations
+a = lab_core['a*'] # a* value for calculations
+b = lab_core['b*'] # b* value for calculations
 
 E = 0.008856 # epsilon
 K = 903.3
@@ -47,7 +49,6 @@ var_z = var_z * 1.08883
 Conversion from XYZ to sRGB
 """
 
-# Taken from EasyRGB, http://www.brucelindbloom.com/
 var_R = (var_x * 3.2404542) + (var_y * -1.5371385) + (var_z * -0.4985314)
 var_G = (var_x * -0.9692660) + (var_y * 1.8760108) + (var_z * 0.0415560)
 var_B = (var_x * 0.0556434) + (var_y * -0.2040259) + (var_z * 1.0572252)
@@ -58,7 +59,6 @@ var_R = np.where(var_R <= 0.0031308, var_R * 12.92, 1.055 * np.power(var_R,power
 var_G = np.where(var_G <= 0.0031308, var_G * 12.92, 1.055 * np.power(var_G,power) - 0.055  )
 var_B = np.where(var_B <= 0.0031308, var_B * 12.92, 1.055 * np.power(var_B,power) - 0.055  )
 
-
 sR = var_R * 255
 sG = var_G * 255
 sB = var_B * 255
@@ -66,15 +66,14 @@ sB = var_B * 255
 zipped = zip(var_R,var_G,var_B)
 sRGB_list = list(zipped)
 
-#zipped_255 = zip(sR, sG, sB)
-#sRGB_list_255 = list(zipped_255)
-#sRGB_list_255 = pd.DataFrame(sRGB_list_255)
-#sRGB_list_255['depth_m'] = depth_m
-#np.savetxt("sRGB_list_255.csv", sRGB_list_255, delimiter=",", fmt='%f')
+"""
+Create custom colormap from sRGB list and plot the colormap. This is the easiest way to create a visualisation that looks like a drilling core. Take note that the figure does not take into account any gaps in a record and will produce a continous record. I suggest to fill all gaps either by white (CIE Lab: 100 0 0) or interpolate the gaps with the values above and below. 
+"""
 
-# Create custom colormap from sRGB list and plot the colormap
-max_depth = np.amax(lab_1100.iloc[:,0])
-fig = plt.figure(figsize=[max_depth,2], facecolor='white')
+
+# max_depth = np.amax(lab_core.iloc[:,0])
+# fig = plt.figure(figsize=[max_depth,2], facecolor='white')
+fig = plt.figure()
 ax = fig.subplots()
 cmap = ListedColormap(sRGB_list)
 cmap.set_over('0.25')
@@ -87,4 +86,4 @@ cb2.set_label('')
 cb2.outline.set_visible(False)
 cb2.set_ticks([])
 ax.set_xticklabels('')
-plt.savefig('colormap_1100.png',dpi=1200)
+plt.savefig('colormap_core.png',dpi=600)
