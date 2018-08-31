@@ -6,5 +6,7 @@ In core analysis, colour is measured either manually or automatically with spect
 
 An example is shown below, where on the left the raw CIE-LAB data is shown, and on the right the final colormap of the sediment.
 
-<img align="center" src="example.png" width="500">
+<p align="center">
+<img src="example.png" width="500">
+</p>
 
