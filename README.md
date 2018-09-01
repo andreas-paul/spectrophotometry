@@ -9,4 +9,4 @@ An example of the results is shown below. On the left the raw CIE-LAB data, on t
 <p align="center">
 <img src="example.png" width="500">
 </p>
-There is very little information available about color conversion from official sources. Hence, most of the calculations used in the code were taken from information provided by <a href="https://www.easyrgb.com" target="_blank">easyrgb.com</a> and <a href="http://www.brucelindbloom.com" target="_blank">brucelindbloom.com/</a> 
+There is very little information available about color conversion from official sources. Hence, most of the calculations used in the code were taken from information provided by <a href="https://www.easyrgb.com" target="_blank">easyrgb.com</a> and <a href="http://www.brucelindbloom.com" target="_blank">brucelindbloom.com</a> 
