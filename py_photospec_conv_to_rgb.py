@@ -62,7 +62,12 @@ sG = var_G * 255
 sB = var_B * 255
 
 
-# Create custom colormap from sRGB list and plot the colormap. This is the easiest way to create a visualisation that looks like a drilling core. Take note that the figure does not take into account any gaps in a record and will produce a continous record. I suggest to fill all gaps either by white (CIE Lab: 100 0 0) or interpolate the gaps with the values above and below. 
+# Create custom colormap from sRGB list and plot the colormap.
+# This is the easiest way to create a visualisation that looks like a 
+# drilling core. Take note that the figure does not take into account any 
+# gaps in a record and will produce a continous record. I suggest to fill all 
+# gaps either by white (CIE Lab: 100 0 0) or interpolate the gaps with the 
+# values above and below. 
 
 zipped = zip(var_R,var_G,var_B)
 sRGB_list = list(zipped)
