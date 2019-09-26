@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/199130416.svg)](https://zenodo.org/badge/latestdoi/199130416)
+
 # Conversion of spectrophotometry data (CIE-L**a**b to sRGB)
 
 Colour is an important parameter in the geosciences. It is used to describe sediment and often allows for the interpretation of depositional environment, estimate organic content or aids in the identification of geological boundaries, amongst others. 
